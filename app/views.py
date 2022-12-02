@@ -11,6 +11,10 @@ from googletrans import Translator
 import json
 
 
+def index(request):
+    return render(request, "index.html")
+
+
 def get_data_from_website():
     translator = Translator()
     for j in range(1, 2):
@@ -62,24 +66,6 @@ def add_job():
                         job = Jobs.objects.get_or_create(
                             catagory_id=i, company_name=data[0][g][-1], job_name=data[1][g][num], job_name_arabic=data[0][g][num], job_url=data[0][g][-2])
     # return HttpResponse('index')
-
-
-def index(request):
-    api_endpoint = 'https://nubela.co/proxycurl/api/v2/linkedin/company/job'
-    api_key = 'kOIbFtbAzrT_Mtgt0KXmGw'
-    header_dic = {'Authorization': 'Bearer ' + api_key}
-    params = {
-        'when': 'yesterday',
-        'flexibility': 'remote',
-        'geo_id': '92000000',
-        'keyword': 'software engineer',
-        'search_id': '1035',
-    }
-    response = requests.get(api_endpoint,
-                            params=params,
-                            headers=header_dic)
-    # print(response.json())
-    return HttpResponse('index')
 
 
 @ csrf_exempt
